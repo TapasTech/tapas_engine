@@ -1,5 +1,9 @@
 module TapasEngine
   class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+    include ParamsPlugin
+    
+    def index
+      render json: {message: 'OK'}.to_json
+    end
   end
 end
