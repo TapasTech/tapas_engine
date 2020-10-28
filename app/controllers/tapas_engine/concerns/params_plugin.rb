@@ -1,17 +1,16 @@
 # frozen_string_literal: true
+module TapasEngine::Concerns::ParamsPlugin
+  extend ActiveSupport::Concern
 
-concern :ParamsPlugin do
   def per
     params[:per]&.to_i || 20
   end
 
   def page
-    debugger
     params[:page]&.to_i || 1
   end
 
   def paginate(data)
-    debugger
     @pagination =
       if data.try(:current_page).present?
         {

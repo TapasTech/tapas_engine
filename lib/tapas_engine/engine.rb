@@ -9,6 +9,7 @@ module TapasEngine
   class Engine < ::Rails::Engine
     isolate_namespace TapasEngine
 
+    config.autoload_paths << File.expand_path("../..", __FILE__)
     # config.autoload_paths << File.expand_path("../../../app/helpers", __FILE__)
     # config.autoload_paths << File.expand_path("../../../app/controllers", __FILE__)
 
