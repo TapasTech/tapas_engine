@@ -1,5 +1,7 @@
 require 'kaminari'
 require 'pg'
+require 'oj'
+require 'pry-rails'
 
 module TapasEngine
   class Engine < ::Rails::Engine
