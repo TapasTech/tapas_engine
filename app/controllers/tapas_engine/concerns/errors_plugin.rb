@@ -34,7 +34,7 @@ module TapasEngine::Concerns::ErrorsPlugin
     render json: { error: '状态错误' }.to_json, status: :unprocessable_entity
   end
 
-  def handle_error(exception)
+  def handle_system_error(exception)
     Rails.logger.error exception.message
     Rails.logger.error exception.backtrace.join("\n").to_s
     render json: { error: exception.message }, status: exception.status
@@ -44,14 +44,6 @@ module TapasEngine::Concerns::ErrorsPlugin
     Rails.logger.error exception.message
     Rails.logger.error exception.backtrace.join("\n").to_s
     render json: { error: exception.message.presence }, status: :not_found
-  end
-
-  def handle_system_error(exception)
-    ExceptionNotifier.notify_exception(exception, env: request.env, data: { message: '505系统错误通知' })
-
-    Rails.logger.error exception.message
-    Rails.logger.error exception.backtrace.join("\n").to_s
-    render json: { error: exception.message.presence || '系统开小差了哦，请稍后再试' }, status: :unprocessable_entity
   end
 
   def handle_record_error(exception)

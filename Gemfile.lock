@@ -2,10 +2,12 @@ PATH
   remote: .
   specs:
     tapas_engine (0.1.0)
+      aasm
       kaminari
       oj
       pg
       pry-rails
+      rack-cors
       rails (~> 6.0.3, >= 6.0.3.4)
       rails_param
       rswag
@@ -13,6 +15,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.1.1)
+      concurrent-ruby (~> 1.0)
     actioncable (6.0.3.4)
       actionpack (= 6.0.3.4)
       nio4r (~> 2.0)
@@ -117,6 +121,8 @@ GEM
       pry (>= 0.10.4)
     public_suffix (4.0.6)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.4)

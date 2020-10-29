@@ -4,6 +4,8 @@ require 'oj'
 require 'pry-rails'
 require 'rswag'
 require 'rails_param'
+require 'aasm'
+require 'rack-cors'
 
 module TapasEngine
   class Engine < ::Rails::Engine
