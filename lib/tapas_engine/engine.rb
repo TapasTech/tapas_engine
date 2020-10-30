@@ -5,7 +5,7 @@ require 'pry-rails'
 require 'rswag'
 require 'rails_param'
 require 'aasm'
-require 'rack-cors'
+require 'sidekiq'
 
 module TapasEngine
   class Engine < ::Rails::Engine
