@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails_param"
   spec.add_dependency "aasm"
   spec.add_dependency "sidekiq"
-  
+  spec.add_dependency "annotate"
+
   spec.add_development_dependency "sqlite3"
 end

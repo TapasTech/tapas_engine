@@ -7,6 +7,7 @@ require 'rswag'
 require 'rails_param'
 require 'aasm'
 require 'sidekiq'
+require 'annotate'
 
 module TapasEngine
   class Engine < ::Rails::Engine
