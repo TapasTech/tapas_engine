@@ -2,6 +2,7 @@ require 'kaminari'
 require 'pg'
 require 'oj'
 require 'pry-rails'
+require 'rspec-rails'
 require 'rswag'
 require 'rails_param'
 require 'aasm'
@@ -11,27 +12,35 @@ module TapasEngine
   class Engine < ::Rails::Engine
     isolate_namespace TapasEngine
 
-    config.autoload_paths << File.expand_path("../..", __FILE__)
-    # config.autoload_paths << File.expand_path("../../../app/helpers", __FILE__)
-    # config.autoload_paths << File.expand_path("../../../app/controllers", __FILE__)
+    initializer "tapas.config.initializer" do |app|
+      app.config.load_defaults 6.0
+      app.config.time_zone = 'Asia/Shanghai'
+      app.config.eager_load_paths += %W(./lib)
 
-    # def self.load_config
-    #   engine_config_dir = Pathname.new(File.expand_path('../../../config', __FILE__))
-    #   # Settings.add_source!(
-    #   #     (engine_config_dir + "settings/#{Rails.env}.yml").to_s
-    #   # )
-    #   # Settings.add_source!(Rails.root.join('config',"settings/#{Rails.env}.yml").to_s)
-    #   # Settings.reload!
-    # end
+      app.config.generators do |g|
+        g.helper false
+        g.assets false
+        g.view_specs false
+        g.template_engine :jbuilder
+        g.scaffold_stylesheet false
+        g.factory_bot dir: 'spec/factories'
+        g.fixture_replacement :factory_bot, dir: 'spec/factories'
+        g.test_framework :rspec,
+                         controller_specs: false,
+                         fixtures: true,
+                         view_specs: false,
+                         helper_specs: false,
+                         routing_specs: false,
+                         request_specs: false
 
-    # initializer "my_engine" do
-    #   Engine::load_config
-    # end
+      end
+    end
 
     # config.to_prepare do
-    #   Dir.glob(Rails.root + "app/**/*.rb").each do |c|
+    #   Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
     #     require_dependency(c)
     #   end
     # end
+
   end
 end

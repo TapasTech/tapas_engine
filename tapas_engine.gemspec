@@ -30,8 +30,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "kaminari"
   spec.add_dependency "oj"
   spec.add_dependency "pry-rails"
+  spec.add_dependency "rspec-rails"
   spec.add_dependency "rswag"
   spec.add_dependency "rails_param"
   spec.add_dependency "aasm"
   spec.add_dependency "sidekiq"
+  
+  spec.add_development_dependency "sqlite3"
 end

@@ -1,2 +1,2 @@
 # frozen_string_literal: true
-render_json_customs(json, @result, @accepts, @excepts, @extras, [])
+render_json_intelligence(json, @result || @results, @accepts, @excepts, @extras, @partials)

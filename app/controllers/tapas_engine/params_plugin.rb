@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module TapasEngine::Concerns::ParamsPlugin
+module TapasEngine::ParamsPlugin
   extend ActiveSupport::Concern
 
   def per
