@@ -4,7 +4,6 @@ module TapasEngine::ErrorsPlugin
   extend ActiveSupport::Concern
 
   included do
-    # rescue_from Exception, with: :handle_system_error
     rescue_from CustomMessageError, with: :error_4xx
     rescue_from ActionController::ParameterMissing, with: :error_422
     rescue_from RailsParam::Param::InvalidParameterError, with: :error_422
