@@ -28,25 +28,17 @@ module TapasEngine::ErrorsPlugin
   def error_422(e)
     render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
-
+  
+  def handle_404(e)
+    render json: { error: e.message.presence }, status: :not_found
+  end
+  
   def handle_aasm(e)
-    render json: { error: '状态错误' }.to_json, status: :unprocessable_entity
+    render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
 
-  def handle_system_error(exception)
-    Rails.logger.error exception.message
-    Rails.logger.error exception.backtrace.join("\n").to_s
-    render json: { error: exception.message }, status: exception.status
-  end
-
-  def handle_404(exception)
-    Rails.logger.error exception.message
-    Rails.logger.error exception.backtrace.join("\n").to_s
-    render json: { error: exception.message.presence }, status: :not_found
-  end
-
-  def handle_record_error(exception)
-    error_message = exception.record.errors.full_messages.first
-    render json: { error: error_message.presence || '系统开小差了哦，请稍后再试' }, status: :unprocessable_entity
+  def handle_record_error(e)
+    error_message = e.record.errors.full_messages.first
+    render json: { error: error_message.presence }, status: :unprocessable_entity
   end
 end
