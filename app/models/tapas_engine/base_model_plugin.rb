@@ -18,14 +18,9 @@ module TapasEngine::BaseModelPlugin
     scope :this_year, -> { where(created_at: Time.zone.now.all_year) }
     scope :last_year, -> { where(created_at: (Time.zone.now - 1.year).all_year) }
 
-    scope :by_created_at, lambda { |start_at = nil, end_at = nil|
-      if start_at.present? || end_at.present?
-        rel = self
-        rel = rel.where('created_at >= ?', start_at) if start_at.present?
-        rel = rel.where('created_at <= ?', end_at) if end_at.present?
-        rel
-      end
-    }
+    scope :created_after, ->(time) { where("created_at > ?", time) if time.present? }
+    scope :created_before, ->(time) { where("created_at < ?", time) if time.present? }
+    scope :created_between, -> (start_at, end_at) { where(created_at: start_at .. end_at) if start_at.present? && end_at.present? }
   end
 
 end
