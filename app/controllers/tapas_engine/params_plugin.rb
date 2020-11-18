@@ -10,6 +10,14 @@ module TapasEngine::ParamsPlugin
     params[:page]&.to_i || 1
   end
 
+  def start_at
+    params[:start_at].present? ? Time.zone.parse(params[:start_at]) : nil
+  end
+
+  def end_at
+    params[:end_at].present? ? Time.zone.parse(params[:end_at]) + 1.day : nil
+  end
+
   def paginate(data)
     @pagination =
       if data.try(:current_page).present?

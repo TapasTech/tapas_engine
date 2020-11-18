@@ -21,6 +21,8 @@ module TapasEngine::BaseModelPlugin
     scope :created_after, ->(time) { where("created_at > ?", time) if time.present? }
     scope :created_before, ->(time) { where("created_at < ?", time) if time.present? }
     scope :created_between, -> (start_at, end_at) { where(created_at: start_at .. end_at) if start_at.present? && end_at.present? }
+
+    scope :like, -> (column, content) { where("#{column} LIKE ?", "%#{content}%") if content.present? }
   end
 
 end
