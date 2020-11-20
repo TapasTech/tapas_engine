@@ -1,16 +1,19 @@
-class SwaggerGenerator < BaseGenerator
+class SwaggerOperationGenerator < BaseGenerator
   source_root File.expand_path('swagger/templates', __dir__)
 
   def create_swagger_file
-    create_file "spec/integration/#{plural_name}_spec.rb", <<-FILE
+    create_file "spec/integration/#{scope}/#{plural_name}_spec.rb", <<-FILE
 require 'api_spec_helper'
 
-describe '#{plural_name} API', type: :request, swagger_doc: 'golden-funnel-swagger.json' do
-  let(:Authorization) {create(:user).auth_token}
+describe '#{plural_name} API', type: :request, swagger_doc: '#{scope}/golden-funnel-operator-swagger.json' do
+  before do
+    login_as_admin
+  end
+
   let(:#{singular_plural_name}) { create(:#{singular_plural_name}) }
   let(:id) { #{singular_plural_name}.id }
 
-  path "/#{plural_name}" do
+  path "/#{scope}/#{plural_name}" do
     get '#{singular_plural_name} 列表' do
       tags '#{plural_name}'
       produces 'application/json'
@@ -83,7 +86,7 @@ describe '#{plural_name} API', type: :request, swagger_doc: 'golden-funnel-swagg
       tags '#{plural_name}'
       produces 'application/json'
       consumes 'application/json'
-
+      
       parameter name: :id, in: :path, type: :string, description: 'id'
 
       response 204, '请求成功' do
