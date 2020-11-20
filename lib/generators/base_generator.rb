@@ -1,16 +1,14 @@
-require 'rails/generators'
-
-class BaseGenerator < Rails::Generators::NamedBase
-  source_root File.expand_path('swagger/templates', __dir__)
-
-  protected
-
+module BaseGenerator
   def singular_plural_name
     plural_name.singularize
   end
 
   def scope
     class_path[0]
+  end
+
+  def chinese_name
+    options['name']
   end
 
   def properties
@@ -26,7 +24,7 @@ class BaseGenerator < Rails::Generators::NamedBase
   end
 
   def columns
-    singular_plural_name.camelize.constantize.columns
+    singular_plural_name.camelize.constantize.columns.delete_if{|column|column.name.in? %(id created_at updated_at)}
   end
 
   def generate_example(example)

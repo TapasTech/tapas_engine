@@ -1,28 +1,15 @@
 # TapasEngine
-Short description and motivation.
 
-## Usage
-How to use my plugin.
+rails 接口项目骨架
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
 gem 'tapas_engine'
 ```
 
-And then execute:
-```bash
-$ bundle
-```
+## Generator
 
-Or install it yourself as:
-```bash
-$ gem install tapas_engine
-```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+rails g swagger_operation operation/task --name 任务 -f
