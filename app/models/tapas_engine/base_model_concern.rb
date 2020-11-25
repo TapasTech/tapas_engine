@@ -40,12 +40,17 @@ module TapasEngine::BaseModelConcern
                 result.handle_compare(attr_key, value.to_s)
               elsif key.to_s.include?('between_')
                 attr_key = key.to_s.gsub('between_', '')
-                front, back = value.split(',')
-                if attr_key.include?('.')
-                  result.where("#{attr_key} between #{front} and #{back}")
-                else
-                  result.where("#{self.name.tableize}.#{attr_key} between #{front} and #{back}") if self.attribute_names.include?(attr_key)
-                end
+                attr_key = "#{self.name.tableize}.#{attr_key}" if !attr_key.include?('.')
+                query_string = if value.is_a?(Array)
+                                 value.map { |item|
+                                   front, back = item.split(',')
+                                   "#{attr_key} between #{front} and #{back}"
+                                 }.join(' or ')
+                               else
+                                 front, back = value.split(',')
+                                 "#{attr_key} between #{front} and #{back}"
+                               end
+              result.where(query_string)
               elsif key.include?('not_')
                 attr_key = key.gsub('not_', '')
                 result.where.not("#{attr_key} = ?", value)
