@@ -55,7 +55,7 @@ module TapasEngine::BaseModelConcern
                 attr_key = key.gsub('not_', '')
                 result.where.not("#{attr_key} = ?", value)
               elsif column_for_attribute(key).type.present? && column_for_attribute(key).array #数组查询
-                result.where("#{key} @> ?", "{#{value}}")
+                result.where("#{key} && ?", "{#{value}}")
               else
                 if key.include?('.')
                   value = begin
